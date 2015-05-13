@@ -1,6 +1,8 @@
 package com.collinbaker.collin_forge_test;
 
+import com.collinbaker.collin_forge_test.proxy.IProxy;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -10,14 +12,24 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  */
 
 @Mod(
-    modid = "forge-test",
-    name = "Forge Test",
-    version = "0.1"
+    modid = ForgeTest.MOD_ID,
+    name = ForgeTest.MOD_NAME,
+    version = ForgeTest.VERSION
 )
 public class ForgeTest
 {
-    @Mod.Instance("forge-test")
+    public static final String MOD_ID = "forge-test";
+    public static final String MOD_NAME = "Forge Test";
+    public static final String VERSION = "0.1";
+
+    @Mod.Instance(MOD_ID)
     public static ForgeTest instance;
+
+    @SidedProxy(
+               clientSide = "com.collinbaker.collin_forge_test.ClientProxy",
+               serverSide = "com.collinbaker.collin_forge_test.ServerProxy"
+    )
+    public static IProxy proxy;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e)
